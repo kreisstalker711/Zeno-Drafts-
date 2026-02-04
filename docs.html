@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeno Draft - Untitled Document</title>
+    <link rel="stylesheet" href="docs-style.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <h1 class="app-name">Zeno Draft</h1>
+            <input type="text" id="doc-title" class="doc-title" value="Untitled Document" placeholder="Document title">
+        </div>
+        
+        <div class="navbar-center">
+            <!-- Formatting Toolbar -->
+            <div class="toolbar">
+                <!-- Text Formatting -->
+                <button class="toolbar-btn" id="bold-btn" title="Bold (Ctrl+B)" data-command="bold">
+                    <strong>B</strong>
+                </button>
+                <button class="toolbar-btn" id="italic-btn" title="Italic (Ctrl+I)" data-command="italic">
+                    <em>I</em>
+                </button>
+                <button class="toolbar-btn" id="underline-btn" title="Underline (Ctrl+U)" data-command="underline">
+                    <u>U</u>
+                </button>
+                
+                <div class="toolbar-divider"></div>
+                
+                <!-- Font Size -->
+                <select id="font-size" class="toolbar-select" title="Font size">
+                    <option value="1">Small</option>
+                    <option value="3" selected>Normal</option>
+                    <option value="5">Large</option>
+                    <option value="7">Huge</option>
+                </select>
+                
+                <div class="toolbar-divider"></div>
+                
+                <!-- Headings -->
+                <select id="format-block" class="toolbar-select" title="Format">
+                    <option value="p">Normal</option>
+                    <option value="h1">Heading 1</option>
+                    <option value="h2">Heading 2</option>
+                    <option value="h3">Heading 3</option>
+                </select>
+                
+                <div class="toolbar-divider"></div>
+                
+                <!-- Text Alignment -->
+                <button class="toolbar-btn" title="Align Left" data-command="justifyLeft">
+                    ≡
+                </button>
+                <button class="toolbar-btn" title="Align Center" data-command="justifyCenter">
+                    ≡
+                </button>
+                <button class="toolbar-btn" title="Align Right" data-command="justifyRight">
+                    ≡
+                </button>
+                
+                <div class="toolbar-divider"></div>
+                
+                <!-- Lists -->
+                <button class="toolbar-btn" title="Bullet List" data-command="insertUnorderedList">
+                    •••
+                </button>
+                <button class="toolbar-btn" title="Numbered List" data-command="insertOrderedList">
+                    1.2.3.
+                </button>
+            </div>
+        </div>
+        
+        <div class="navbar-right">
+            <span class="save-status" id="save-status">Saved</span>
+            <button class="save-btn" id="save-btn">Save</button>
+        </div>
+    </nav>
+    
+    <!-- Document Canvas -->
+    <div class="canvas">
+        <div class="page" id="editor" contenteditable="true" spellcheck="true">
+            <!-- Blank canvas - content loads from localStorage or starts empty -->
+        </div>
+    </div>
+    
+    <script src="docs-script.js"></script>
+</body>
+</html>

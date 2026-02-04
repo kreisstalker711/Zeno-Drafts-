@@ -1,0 +1,568 @@
+/**
+ * ZENO DRAFT - LANDING PAGE STYLES
+ * Modern SaaS design with light + light blue theme
+ */
+
+/* ===========================
+   RESET & BASE STYLES
+   =========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 
+                 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: linear-gradient(135deg, #f5f7fa 0%, #f0f4f8 100%);
+    color: #1a202c;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ===========================
+   CONTAINER
+   =========================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ===========================
+   HERO SECTION
+   =========================== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 0;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #e8f2ff 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle background pattern */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(66, 153, 225, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(99, 179, 237, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+/* Brand/Logo */
+.brand {
+    margin-bottom: 60px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2563eb;
+    letter-spacing: -0.5px;
+}
+
+/* Hero Content */
+.hero-content {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.headline {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    color: #0f172a;
+    letter-spacing: -1.5px;
+}
+
+.subheadline {
+    font-size: 22px;
+    line-height: 1.5;
+    color: #475569;
+    margin-bottom: 48px;
+    font-weight: 400;
+}
+
+/* CTA Group */
+.cta-group {
+    margin-bottom: 40px;
+}
+
+.btn-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 18px 48px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2),
+                0 4px 12px rgba(37, 99, 235, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.25),
+                0 6px 15px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-large {
+    padding: 20px 56px;
+    font-size: 20px;
+}
+
+.cta-note {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* Hero Badge */
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #bae6fd;
+}
+
+.hero-badge svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ===========================
+   VISUAL PREVIEW SECTION
+   =========================== */
+.preview {
+    padding: 120px 0;
+    background: #f8fafc;
+}
+
+.preview-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Mock Editor */
+.mock-editor {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08),
+                0 10px 25px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+/* Mock Toolbar */
+.mock-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.mock-toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.mock-logo-small {
+    font-weight: 600;
+    color: #2563eb;
+    font-size: 16px;
+}
+
+.mock-doc-title {
+    font-size: 14px;
+    color: #64748b;
+    padding: 4px 8px;
+    background: #f8fafc;
+    border-radius: 4px;
+}
+
+.mock-toolbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #f1f5f9;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+.mock-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #475569;
+    cursor: default;
+}
+
+.mock-divider {
+    width: 1px;
+    height: 20px;
+    background: #cbd5e1;
+    margin: 0 4px;
+}
+
+.mock-select {
+    padding: 6px 12px;
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #475569;
+}
+
+.mock-toolbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.mock-status {
+    font-size: 13px;
+    color: #10b981;
+    font-weight: 500;
+}
+
+/* Mock Document */
+.mock-document {
+    background: #f8fafc;
+    padding: 60px 40px;
+    min-height: 500px;
+}
+
+.mock-page {
+    background: white;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 80px 100px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+}
+
+.mock-heading {
+    font-size: 32px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.mock-paragraph {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #334155;
+    margin-bottom: 16px;
+}
+
+.mock-cursor {
+    color: #94a3b8;
+    position: relative;
+}
+
+.mock-cursor::after {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 20px;
+    background: #3b82f6;
+    margin-left: 2px;
+    animation: blink 1s infinite;
+    vertical-align: text-bottom;
+}
+
+@keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+/* ===========================
+   FEATURES SECTION
+   =========================== */
+.features {
+    padding: 120px 0;
+    background: white;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 32px 24px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    background: #f8fafc;
+    transform: translateY(-4px);
+}
+
+.feature-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border-radius: 16px;
+    color: #2563eb;
+}
+
+.feature-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 12px;
+}
+
+.feature-description {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #64748b;
+}
+
+/* ===========================
+   FINAL CTA SECTION
+   =========================== */
+.final-cta {
+    padding: 120px 0;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    text-align: center;
+}
+
+.final-cta-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.final-cta-headline {
+    font-size: 48px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+}
+
+.final-cta-subheadline {
+    font-size: 20px;
+    color: #475569;
+    margin-bottom: 40px;
+}
+
+/* ===========================
+   FOOTER
+   =========================== */
+.footer {
+    padding: 60px 0;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.footer-text {
+    font-size: 14px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+@media (max-width: 1024px) {
+    .headline {
+        font-size: 52px;
+    }
+    
+    .subheadline {
+        font-size: 20px;
+    }
+    
+    .mock-page {
+        padding: 60px 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: auto;
+        padding: 80px 0;
+    }
+    
+    .headline {
+        font-size: 42px;
+    }
+    
+    .subheadline {
+        font-size: 18px;
+        margin-bottom: 36px;
+    }
+    
+    .btn-primary {
+        font-size: 16px;
+        padding: 16px 36px;
+    }
+    
+    .btn-large {
+        padding: 18px 44px;
+        font-size: 18px;
+    }
+    
+    .preview {
+        padding: 80px 0;
+    }
+    
+    .features {
+        padding: 80px 0;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    
+    .final-cta {
+        padding: 80px 0;
+    }
+    
+    .final-cta-headline {
+        font-size: 36px;
+    }
+    
+    .final-cta-subheadline {
+        font-size: 18px;
+    }
+    
+    .mock-document {
+        padding: 40px 20px;
+    }
+    
+    .mock-page {
+        padding: 40px 32px;
+    }
+    
+    .mock-heading {
+        font-size: 26px;
+    }
+    
+    .mock-paragraph {
+        font-size: 15px;
+    }
+    
+    .mock-toolbar {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .mock-toolbar-controls {
+        order: 3;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .headline {
+        font-size: 36px;
+    }
+    
+    .subheadline {
+        font-size: 16px;
+    }
+    
+    .logo {
+        font-size: 24px;
+    }
+    
+    .brand {
+        margin-bottom: 40px;
+    }
+    
+    .hero-badge {
+        font-size: 13px;
+        padding: 8px 16px;
+    }
+    
+    .mock-page {
+        padding: 32px 24px;
+    }
+    
+    .final-cta-headline {
+        font-size: 32px;
+    }
+    
+    .container {
+        padding: 0 16px;
+    }
+}
+
+/* ===========================
+   SMOOTH TRANSITIONS
+   =========================== */
+a, button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===========================
+   SELECTION COLORS
+   =========================== */
+::selection {
+    background: #bfdbfe;
+    color: #1e3a8a;
+}
+
+::-moz-selection {
+    background: #bfdbfe;
+    color: #1e3a8a;
+}
