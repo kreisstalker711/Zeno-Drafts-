@@ -76,17 +76,21 @@ function saveDocument() {
  * Update save status indicator
  */
 function updateSaveStatus(status) {
-    saveStatus.className = 'save-status';
+    const saveStatus = document.getElementById('save-status');
+    const saveText = document.getElementById('save-text');
+    
+    // Remove all status classes
+    saveStatus.classList.remove('saving', 'saved', 'unsaved');
     
     if (status === 'saving') {
-        saveStatus.textContent = 'Saving...';
+        saveText.textContent = 'Saving...';
         saveStatus.classList.add('saving');
     } else if (status === 'saved') {
-        saveStatus.textContent = 'Saved';
+        saveText.textContent = 'Saved';
         saveStatus.classList.add('saved');
     } else if (status === 'unsaved') {
-        saveStatus.textContent = 'Unsaved changes';
-        saveStatus.classList.remove('saved', 'saving');
+        saveText.textContent = 'Unsaved';
+        saveStatus.classList.add('unsaved');
     }
 }
 

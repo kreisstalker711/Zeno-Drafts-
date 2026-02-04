@@ -9,73 +9,102 @@
 <body>
     <!-- Top Navigation Bar -->
     <nav class="navbar">
-        <div class="navbar-left">
-            <h1 class="app-name">Zeno Draft</h1>
-            <input type="text" id="doc-title" class="doc-title" value="Untitled Document" placeholder="Document title">
-        </div>
-        
-        <div class="navbar-center">
-            <!-- Formatting Toolbar -->
-            <div class="toolbar">
-                <!-- Text Formatting -->
-                <button class="toolbar-btn" id="bold-btn" title="Bold (Ctrl+B)" data-command="bold">
-                    <strong>B</strong>
-                </button>
-                <button class="toolbar-btn" id="italic-btn" title="Italic (Ctrl+I)" data-command="italic">
-                    <em>I</em>
-                </button>
-                <button class="toolbar-btn" id="underline-btn" title="Underline (Ctrl+U)" data-command="underline">
-                    <u>U</u>
-                </button>
-                
-                <div class="toolbar-divider"></div>
-                
-                <!-- Font Size -->
-                <select id="font-size" class="toolbar-select" title="Font size">
-                    <option value="1">Small</option>
-                    <option value="3" selected>Normal</option>
-                    <option value="5">Large</option>
-                    <option value="7">Huge</option>
-                </select>
-                
-                <div class="toolbar-divider"></div>
-                
-                <!-- Headings -->
-                <select id="format-block" class="toolbar-select" title="Format">
-                    <option value="p">Normal</option>
-                    <option value="h1">Heading 1</option>
-                    <option value="h2">Heading 2</option>
-                    <option value="h3">Heading 3</option>
-                </select>
-                
-                <div class="toolbar-divider"></div>
-                
-                <!-- Text Alignment -->
-                <button class="toolbar-btn" title="Align Left" data-command="justifyLeft">
-                    ≡
-                </button>
-                <button class="toolbar-btn" title="Align Center" data-command="justifyCenter">
-                    ≡
-                </button>
-                <button class="toolbar-btn" title="Align Right" data-command="justifyRight">
-                    ≡
-                </button>
-                
-                <div class="toolbar-divider"></div>
-                
-                <!-- Lists -->
-                <button class="toolbar-btn" title="Bullet List" data-command="insertUnorderedList">
-                    •••
-                </button>
-                <button class="toolbar-btn" title="Numbered List" data-command="insertOrderedList">
-                    1.2.3.
+        <div class="navbar-container">
+            <div class="navbar-left">
+                <h1 class="app-name">Zeno Draft</h1>
+                <input type="text" id="doc-title" class="doc-title" value="Untitled Document" placeholder="Document title">
+            </div>
+            
+            <div class="navbar-center">
+                <!-- Formatting Toolbar -->
+                <div class="toolbar">
+                    <!-- Text Formatting -->
+                    <button class="toolbar-btn" id="bold-btn" title="Bold (Ctrl+B)" data-command="bold">
+                        <strong>B</strong>
+                    </button>
+                    <button class="toolbar-btn" id="italic-btn" title="Italic (Ctrl+I)" data-command="italic">
+                        <em>I</em>
+                    </button>
+                    <button class="toolbar-btn" id="underline-btn" title="Underline (Ctrl+U)" data-command="underline">
+                        <u>U</u>
+                    </button>
+                    
+                    <div class="toolbar-divider"></div>
+                    
+                    <!-- Font Size -->
+                    <select id="font-size" class="toolbar-select" title="Font size">
+                        <option value="1">Small</option>
+                        <option value="3" selected>Normal</option>
+                        <option value="5">Large</option>
+                        <option value="7">Huge</option>
+                    </select>
+                    
+                    <div class="toolbar-divider"></div>
+                    
+                    <!-- Headings -->
+                    <select id="format-block" class="toolbar-select" title="Format">
+                        <option value="p">Normal</option>
+                        <option value="h1">Heading 1</option>
+                        <option value="h2">Heading 2</option>
+                        <option value="h3">Heading 3</option>
+                    </select>
+                    
+                    <div class="toolbar-divider"></div>
+                    
+                    <!-- Text Alignment -->
+                    <button class="toolbar-btn" title="Align Left" data-command="justifyLeft">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 3h12M2 6h8M2 9h12M2 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <button class="toolbar-btn" title="Align Center" data-command="justifyCenter">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 3h12M4 6h8M2 9h12M4 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <button class="toolbar-btn" title="Align Right" data-command="justifyRight">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 3h12M6 6h8M2 9h12M6 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    
+                    <div class="toolbar-divider"></div>
+                    
+                    <!-- Lists -->
+                    <button class="toolbar-btn" title="Bullet List" data-command="insertUnorderedList">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="3" cy="4" r="1.5" fill="currentColor"/>
+                            <circle cx="3" cy="8" r="1.5" fill="currentColor"/>
+                            <circle cx="3" cy="12" r="1.5" fill="currentColor"/>
+                            <path d="M7 4h7M7 8h7M7 12h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <button class="toolbar-btn" title="Numbered List" data-command="insertOrderedList">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <text x="1" y="6" font-size="7" fill="currentColor" font-weight="600">1.</text>
+                            <text x="1" y="10" font-size="7" fill="currentColor" font-weight="600">2.</text>
+                            <text x="1" y="14" font-size="7" fill="currentColor" font-weight="600">3.</text>
+                            <path d="M7 4h7M7 8h7M7 12h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="navbar-right">
+                <span class="save-status" id="save-status">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.5 4.5L6 12L2.5 8.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span id="save-text">Saved</span>
+                </span>
+                <button class="save-btn" id="save-btn">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 13H4c-.55 0-1-.45-1-1V4c0-.55.45-1 1-1h6l3 3v6c0 .55-.45 1-1 1z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 13v-4H6v4M6 3v3h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Save
                 </button>
             </div>
-        </div>
-        
-        <div class="navbar-right">
-            <span class="save-status" id="save-status">Saved</span>
-            <button class="save-btn" id="save-btn">Save</button>
         </div>
     </nav>
     
