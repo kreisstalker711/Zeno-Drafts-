@@ -27,8 +27,8 @@
                 
                 <!-- Primary CTA -->
                 <div class="cta-group">
-                    <a href="docs.html" class="btn-primary">Start Drafting</a>
-                    <p class="cta-note">No login required</p>
+                    <a href="docs.html" class="btn-primary">Start a New Draft</a>
+                    <p class="cta-note">Login required</p>
                 </div>
             </div>
             
@@ -99,6 +99,20 @@
                     <p class="feature-description">No downloads, no installations. Access your documents from any device.</p>
                 </div>
                 
+            </div>
+        </div>
+    </section>
+
+    <!-- Public Projects Section -->
+    <section class="features" id="projects">
+        <div class="container">
+            <div style="text-align: center; max-width: 700px; margin: 0 auto 60px;">
+                <h2 class="final-cta-headline" style="font-size: 40px; margin-bottom: 12px;">Public Projects</h2>
+                <p class="subheadline" style="font-size: 20px; margin-bottom: 0;">Explore what others are writing.</p>
+            </div>
+            <div class="features-grid" id="projects-grid">
+                <!-- Projects will be dynamically inserted here -->
+                <p id="no-projects-msg" style="grid-column: 1 / -1; text-align: center; color: #64748b;">No public projects yet. Publish your draft to see it here!</p>
             </div>
         </div>
     </section>
@@ -207,19 +221,39 @@
         </div>
     </footer>
     
-    <!-- Smooth scrolling for preview section -->
     <script>
-        // Add subtle animation on CTA hover for buttons that scroll to preview
-        const previewLink = document.querySelector('a[href="#editor"]');
-        if (previewLink) {
-            previewLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector('#editor').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectsGrid = document.getElementById('projects-grid');
+            const noProjectsMsg = document.getElementById('no-projects-msg');
+            const allDocs = JSON.parse(localStorage.getItem('zenoDocs') || '{}');
+            
+            const publicProjects = [];
+            for (const user in allDocs) {
+                const userProjects = allDocs[user] || [];
+                userProjects.forEach(project => {
+                    if (project.published) {
+                        publicProjects.push({ ...project, author: user });
+                    }
                 });
-            });
-        }
+            }
+
+            if (publicProjects.length > 0) {
+                if(noProjectsMsg) noProjectsMsg.style.display = 'none';
+                publicProjects.forEach(project => {
+                    const projectCard = document.createElement('a');
+                    projectCard.href = `docs.html?id=${project.id}`;
+                    projectCard.className = 'feature-card'; // Re-using feature card style
+                    projectCard.style.textAlign = 'left';
+                    projectCard.style.textDecoration = 'none';
+
+                    projectCard.innerHTML = `
+                        <h3 class="feature-title">${project.title || 'Untitled Project'}</h3>
+                        <p class="feature-description">By ${project.author}</p>
+                    `;
+                    projectsGrid.appendChild(projectCard);
+                });
+            }
+        });
     </script>
     
 </body>

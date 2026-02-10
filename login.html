@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Zeno Draft</title>
+    <link rel="stylesheet" href="landing-style.css">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <style>
+        .login-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
+        .login-form-container {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            padding: 48px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+        .login-form-container .brand {
+            margin-bottom: 32px;
+        }
+        .login-form-container h2 {
+            font-size: 28px;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+        .login-form-container p {
+            color: #64748b;
+            margin-bottom: 32px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <section class="login-section">
+        <div class="login-form-container">
+            <div class="brand">
+                <img src="logo.png" alt="Zeno Draft Logo" style="max-width: 150px;">
+            </div>
+            <h2>Welcome Back</h2>
+            <p>Log in to access your documents.</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" class="doc-title" style="max-width: 100%;" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Login</button>
+            </form>
+        </div>
+    </section>
+    <script src="login.js"></script>
+</body>
+</html>

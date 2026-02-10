@@ -10,6 +10,7 @@ const editor = document.getElementById('editor');
 const docTitle = document.getElementById('doc-title');
 const saveStatus = document.getElementById('save-status');
 const saveBtn = document.getElementById('save-btn');
+const publishBtn = document.getElementById('publish-btn');
 const fontSizeSelect = document.getElementById('font-size');
 const formatBlockSelect = document.getElementById('format-block');
 
@@ -18,10 +19,26 @@ const AUTO_SAVE_INTERVAL = 5000;
 let autoSaveTimer = null;
 let hasUnsavedChanges = false;
 
+// Project and User specific
+let currentUser = null;
+let currentProjectId = null;
+
 // ===========================
 // INITIALIZATION
 // ===========================
 document.addEventListener('DOMContentLoaded', function() {
+    currentUser = sessionStorage.getItem('zeno-user');
+    if (!currentUser) {
+        // This should be caught by the script in docs.html, but as a fallback.
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlProjectId = urlParams.get('id');
+    // Only set currentProjectId if it's a valid-looking ID (not null/empty)
+    if (urlProjectId) currentProjectId = urlProjectId;
+
     loadDocument();
     initializeToolbar();
     initializeKeyboardShortcuts();
@@ -37,19 +54,24 @@ document.addEventListener('DOMContentLoaded', function() {
  * Load document from localStorage
  */
 function loadDocument() {
-    const savedContent = localStorage.getItem('draftDocs_content');
-    const savedTitle = localStorage.getItem('draftDocs_title');
+    const allDocs = JSON.parse(localStorage.getItem('zenoDocs') || '{}');
+    const userDocs = allDocs[currentUser] || [];
     
-    if (savedContent) {
-        editor.innerHTML = savedContent;
-    } else {
-        // Start with a completely blank canvas
-        editor.innerHTML = '';
+    let docToLoad = null;
+    if (currentProjectId) {
+        docToLoad = userDocs.find(doc => doc.id == currentProjectId);
     }
-    
-    if (savedTitle) {
-        docTitle.value = savedTitle;
-        updatePageTitle(savedTitle);
+
+    if (docToLoad) {
+        editor.innerHTML = docToLoad.content || '';
+        docTitle.value = docToLoad.title || 'Untitled Document';
+        updatePageTitle(docToLoad.title);
+    } else {
+        // New document or invalid ID
+        currentProjectId = null; // Ensure we treat it as a new doc
+        editor.innerHTML = '';
+        docTitle.value = 'Untitled Document';
+        updatePageTitle('Untitled Document');
     }
     
     // Mark as saved initially
@@ -62,10 +84,42 @@ function loadDocument() {
 function saveDocument() {
     const content = editor.innerHTML;
     const title = docTitle.value;
+
+    const allDocs = JSON.parse(localStorage.getItem('zenoDocs') || '{}');
+    if (!allDocs[currentUser]) {
+        allDocs[currentUser] = [];
+    }
     
-    localStorage.setItem('draftDocs_content', content);
-    localStorage.setItem('draftDocs_title', title);
+    let userDocs = allDocs[currentUser];
+    let docIndex = -1;
+    if (currentProjectId) {
+        docIndex = userDocs.findIndex(doc => doc.id == currentProjectId);
+    }
+
+    if (docIndex > -1) {
+        // Update existing document
+        userDocs[docIndex].title = title;
+        userDocs[docIndex].content = content;
+        userDocs[docIndex].modifiedAt = new Date().toISOString();
+    } else {
+        // Create new document
+        const newDoc = {
+            id: String(Date.now()),
+            title: title,
+            content: content,
+            author: currentUser,
+            createdAt: new Date().toISOString(),
+            modifiedAt: new Date().toISOString(),
+            published: false
+        };
+        userDocs.push(newDoc);
+        currentProjectId = newDoc.id;
+        // Update URL without reloading page to reflect new project ID
+        window.history.replaceState({}, '', `?id=${currentProjectId}`);
+    }
     
+    localStorage.setItem('zenoDocs', JSON.stringify(allDocs));
+
     hasUnsavedChanges = false;
     updateSaveStatus('saved');
     
@@ -76,7 +130,6 @@ function saveDocument() {
  * Update save status indicator
  */
 function updateSaveStatus(status) {
-    const saveStatus = document.getElementById('save-status');
     const saveText = document.getElementById('save-text');
     
     // Remove all status classes
@@ -99,6 +152,27 @@ function updateSaveStatus(status) {
  */
 function updatePageTitle(title) {
     document.title = `${title} - Draft Docs`;
+}
+
+/**
+ * Publishes the current document.
+ */
+function publishDocument() {
+    saveDocument(); // Save any pending changes first
+
+    if (!currentProjectId) {
+        // This case should be handled by saveDocument creating an ID, but as a safeguard.
+        alert('Please save the document first before publishing.');
+        return;
+    }
+
+    const allDocs = JSON.parse(localStorage.getItem('zenoDocs') || '{}');
+    const userDocs = allDocs[currentUser] || [];
+    const doc = userDocs.find(d => d.id == currentProjectId);
+
+    doc.published = true;
+    localStorage.setItem('zenoDocs', JSON.stringify(allDocs));
+    alert(`'${doc.title}' has been published! You can see it on the homepage.`);
 }
 
 // ===========================
@@ -151,6 +225,11 @@ function initializeEditor() {
         setTimeout(() => {
             saveDocument();
         }, 300);
+    });
+
+    // Publish button
+    publishBtn.addEventListener('click', function() {
+        publishDocument();
     });
     
     // Focus editor on load
@@ -265,11 +344,11 @@ function initializeKeyboardShortcuts() {
  * Clear all content (for testing)
  */
 function clearDocument() {
-    if (confirm('Are you sure you want to clear the document? This cannot be undone.')) {
-        editor.innerHTML = '<p>Start typing...</p>';
-        docTitle.value = 'Untitled Document';
-        updatePageTitle('Untitled Document');
-        saveDocument();
+    if (confirm('This will start a new, blank document. Are you sure?')) {
+        // Instead of clearing, we just redirect to the editor without a project ID
+        window.location.href = 'docs.html';
+        // The old logic is not compatible with the project-based system.
+        // A "delete" function would be more appropriate.
     }
 }
 
@@ -322,12 +401,12 @@ function exportAsHTML() {
  */
 window.addEventListener('beforeunload', function(e) {
     if (hasUnsavedChanges) {
-        // Save before leaving
-        saveDocument();
-        
         // Show confirmation dialog
+        // Modern browsers may not show the custom message.
         e.preventDefault();
         e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+        // We don't auto-save on exit anymore as it can be disruptive
+        // and the user might want to discard changes.
         return e.returnValue;
     }
 });
@@ -349,4 +428,5 @@ console.log('%c Draft Docs Loaded Successfully ', 'background: #1a73e8; color: w
 console.log('Available commands:');
 console.log('  - saveDocument() - Manually save the document');
 console.log('  - clearDocument() - Clear all content');
+console.log('  - publishDocument() - Publish the current document');
 console.log('  - exportAsHTML() - Export document as HTML string');
